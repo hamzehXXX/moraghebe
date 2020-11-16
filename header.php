@@ -29,6 +29,7 @@ if (!is_user_logged_in()) {
 
                         <?php }                    ?>
 
+                       <li <?php if (get_post_type() == 'arbayiin')echo 'class="current-menu-item"'; ?>><a href="<?php echo site_url('/sabegh'); ?>">اربعینیات سابق</a></li>
                        <li <?php if (get_post_type() == 'arbayiin')echo 'class="current-menu-item"'; ?>><a href="<?php echo get_post_type_archive_link('arbayiin'); ?>">اربعینیات</a></li>
                         <li <?php if (get_post_type() == 'event' OR is_page('past-events')) echo 'class="current-menu-item"'?>><a href="<?php echo get_post_type_archive_link('event');?>">رویدادها</a></li>
                         <li <?php if (get_post_type() == 'post') echo 'class="current-menu-item"' ?>><a href="<?php echo site_url('/news');?>">اطلاعیه ها</a></li>

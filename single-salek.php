@@ -1,5 +1,4 @@
 <?php
-echo 'as;lfddj';
 $ourCurrentUser = wp_get_current_user();
 $currentUserRoles = $ourCurrentUser->roles;
 if (!is_user_logged_in() AND ( !(in_array('khadem-mard', $currentUserRoles)) OR !(in_array('khadem-zan', $currentUserRoles)) OR !(in_array('admin', $currentUserRoles)))){
@@ -11,6 +10,7 @@ get_header();
 while(have_posts()) {
     the_post();
     $name = get_the_title();
+
     ?>
     <div class="page-banner">
         <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/ocean.jpg') ?>);"></div>
@@ -46,7 +46,7 @@ while(have_posts()) {
             echo '<ul class="results-ul">';
             ?>
 
-            <li><?php echo '<h2 class="results-title">اربعین های اخذ شده</h2>'; ?></li>
+            <li><?php echo '<h2 class="results-title">اربعین های سابق</h2>'; ?></li>
             <?php
 
 
@@ -62,7 +62,8 @@ while(have_posts()) {
         <ul class="min-list" id="results">
                 <?php
                 set_query_var( 'userID', $userID );
-//                echo get_template_part( 'template-parts/content', 'results' );
+
+                echo get_template_part( 'template-parts/content', 'results' );
                 ?>
         </ul>
     </div>
@@ -116,7 +117,7 @@ while(have_posts()) {
 
                    <?php
                foreach ($arbayiinTitlesArray as $title){
-//                   setup_postdata( $arbayiinByGroups->the_post() );
+                   setup_postdata( $arbayiinByGroups->the_post() );
                    ?>
 
                    <?php
@@ -132,6 +133,7 @@ while(have_posts()) {
 
         // arbayiin haye bad az application
         /**
+         * ARBAYIIN HAYE BAD AZ APPLICATION
          * Field Structure:
          *
          * - parent_repeater (Repeater)
@@ -149,15 +151,90 @@ while(have_posts()) {
                 if ($dastoor_title) {
 
                     echo '<h3>' . esc_html( $dastoor_title->post_title ) . '</h3>';
+                    ?>
+                    <div class="arbayiin-table">
+                        <ul class="min-list" id="results">
+                            <?php
+                            set_query_var( 'userID', $userID );
+                            //                echo get_template_part( 'template-parts/content', 'results' );
+                            ?>
+                        </ul>
+                    </div>
+                    <?php
                 }
             endwhile;
         endif;
-
-
         ?>
 
     </div>
+    <?php
+    //################################### START REPEATER TEST
 
+    // get repeater field data
+    $repeater = get_field('arb_after_app');
+
+    // vars
+    $order = array();
+
+
+    // populate order
+    foreach( $repeater as $i => $row ) {
+
+        $order[ $i ] = $row['id'];
+
+    }
+
+
+    /*
+
+    $order should look like this:
+
+    Array (
+        [0] => 3
+        [1] => 2
+        [2] => 4
+        [3] => 1
+    )
+
+    */
+
+
+    // multisort
+//            array_multisort( $order, SORT_DESC, $repeater );
+
+
+    // loop through repeater
+    if( $repeater ): ?>
+
+        <ul>
+
+            <?php foreach( $repeater as $i => $row ): ?>
+                <?php
+                $arbayiinID = get_the_ID();
+                $post = $row['dastoor_takhsised'];
+                setup_postdata($post);
+                ?>
+                <li><?php echo $row['dastoor_takhsised']->post_title; ?>
+                </li>
+                <li>
+                    <div class="arbayiin-table">
+                        <ul class="min-list" id="results">
+                            <?php
+                            set_query_var( 'userID', $userID );
+                            echo get_template_part( 'template-parts/content', 'results' );
+                            ?>
+                        </ul>
+                    </div>
+                </li>
+
+            <?php
+                wp_reset_postdata();
+            endforeach; ?>
+
+        </ul>
+
+    <?php endif; ?>
+    //################### END REPEATER TEST
 <?php } wp_reset_postdata();
 get_footer();
 ?>

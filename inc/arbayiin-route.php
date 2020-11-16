@@ -21,6 +21,11 @@ function moraghebehArbayiinRoutes() {
         'callback' => 'getArbayiin'
     ));
 
+    register_rest_route('moraghebeh/v1', 'getSabeghArbs', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => 'getSabeghArbs'
+    ));
+
     register_rest_route('moraghebeh/v1', 'getArbayiinSize', array(
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'getArbayiinSize'
@@ -161,25 +166,25 @@ function getArbayiin($request){
 
         //START >>>>>>********************************       [ ARBAYIINS FROM SALEKIN ]       **********************
         // Get users which their ID is current userID and have current arbayiin in their relation subfield of arb_after_app field
+
         if( have_rows('arb_after_app') ):
             while( have_rows('arb_after_app') ) : the_row();
 
                 // Get parent value.
                 $dastoor_title = get_sub_field('dastoor_takhsised');
 
-
                 if ($dastoor_title == $title) {
 
-                    $arbayiins_data["arbayiinId"] = $id;
-                    $arbayiins_data["title"] = $title;
-                    $arbayiins_data["content"] = $content;
-                    $arbayiins_data["duration"] = $duration;
-                    $arbayiins_data["mp3_url"] = $mp3_url;
-                    $arbayiins_data["mp3_duration"] = $mp3_duration;
-                    // Seyed Masoud ezaf krdim
-                    $arbayiins_data["status"] = $status;
-                    $response[$counter] = $arbayiins_data;
-                    $counter++;
+//                    $arbayiins_data["arbayiinId"] = $id;
+//                    $arbayiins_data["title"] = $title;
+//                    $arbayiins_data["content"] = $content;
+//                    $arbayiins_data["duration"] = $duration;
+//                    $arbayiins_data["mp3_url"] = $mp3_url;
+//                    $arbayiins_data["mp3_duration"] = $mp3_duration;
+//                    // Seyed Masoud ezaf krdim
+//                    $arbayiins_data["status"] = $status;
+//                    $response[$counter] = $arbayiins_data;
+//                    $counter++;
                 }
             endwhile;
         endif;
@@ -197,6 +202,61 @@ function getArbayiin($request){
 //                )
 //            )
 //        ));
+
+        // args
+        $args = array(
+            'numberposts'	=> -1,
+            'post_type'		=> 'salek',
+        );
+        $the_query = new WP_Query( $args);
+        while ($the_query->have_posts()){
+            $the_query->the_post();
+
+            if (get_field('salekid')['ID'] == $request["userId"]){
+
+                // arbayiin haye bad az application
+                /**
+                 * ARBAYIIN HAYE BAD AZ APPLICATION
+                 * Field Structure:
+                 *
+                 * - parent_repeater (Repeater)
+                 *   - parent_title (Text)
+                 *   - child_repeater (Repeater)
+                 *     - child_title (Text)
+                 */
+                if( have_rows('arb_after_app') ):
+                    while( have_rows('arb_after_app') ) : the_row();
+
+                        // Get parent value.
+                        $dastoor_title = get_sub_field('dastoor_takhsised');
+
+
+                        if ($dastoor_title): ?>
+                            <?php
+
+                            if ($id == $dastoor_title->ID){
+                                $arbayiins_data["arbayiinId"] = $id;
+                                $arbayiins_data["title"] = $title;
+                                $arbayiins_data["content"] = $content;
+                                $arbayiins_data["duration"] = $duration;
+                                $arbayiins_data["mp3_url"] = $mp3_url;
+                                $arbayiins_data["mp3_duration"] = $mp3_duration;
+                                // Seyed Masoud ezaf krdim
+                                $arbayiins_data["status"] = $status;
+                                $response[$counter] = $arbayiins_data;
+                                $counter++;
+                            }
+
+                            ?>
+
+                        <?php endif; ?>
+                    <?php
+
+
+                    endwhile;
+                endif;
+            }
+        }
         // Seyed Masoud ezaf krdim
 
 
@@ -267,6 +327,60 @@ function getArbayiin($request){
 //        $counter++;
 //    }
     // Return all of our comment response data.
+    return $response;
+}
+
+function getSabeghArbs($request) {
+    $response = [];
+    $arbayiins_data = array();
+    $arbayiins = new WP_Query(array(
+        'post_type' => 'arbayiin',
+        'posts_per_page' => -1
+    ));
+
+    $counter = 0;
+    while ($arbayiins->have_posts()) {
+        $arbayiins->the_post();
+        $id = get_the_ID();
+        $title = get_the_title();
+        $content = get_the_content();
+        $duration = get_field('arbayiin-duration');
+        $mp3_url = get_field('mp3_url');
+        $mp3_duration = get_field('mp3_duration');
+        $status = 0;
+
+
+        // Get users which their ID is current userID and have current arbayiin in their relation field
+        $salekArbayiins = new WP_Query(array(
+            'post_type' => 'salek',
+            'meta_value' => $request["userId"].'',
+            'orderby' => 'modified',
+            'posts_per_page' => -1,
+            'meta_query' => array(
+                array(
+                    'key' => 'arbayiin',
+                    'compare' => 'LIKE',
+                    'value' => '"' . $id . '"'
+                )
+            )
+        ));
+
+        if ($salekArbayiins->found_posts) {
+            $arbayiins_data["arbayiinId"] = $id;
+            $arbayiins_data["title"] = $title;
+            $arbayiins_data["content"] = $content;
+            $arbayiins_data["duration"] = $duration;
+            $arbayiins_data["mp3_url"] = $mp3_url;
+            $arbayiins_data["mp3_duration"] = $mp3_duration;
+            // Seyed Masoud ezaf krdim
+            $arbayiins_data["status"] = $status;
+            $response[$counter] = $arbayiins_data;
+            $counter++;
+        }
+
+    }
+
+
     return $response;
 }
 
