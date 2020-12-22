@@ -12,6 +12,7 @@ require get_theme_file_path('/inc/profile-route.php');
 require get_theme_file_path('/inc/remove_wordpress_traces.php');
 require get_theme_file_path('/inc/results-form-android-route.php');
 require get_theme_file_path('/classes/profile-fields.php');
+require get_theme_file_path('/vendor/autoload.php');
 
 function moraghebeh_files() {
     wp_enqueue_style('moraghebeh_main_styles', get_stylesheet_uri(), NULL, microtime());

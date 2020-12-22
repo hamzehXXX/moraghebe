@@ -7,6 +7,7 @@
             <h1 class="page-banner__title">اربعینیات</h1>
             <div class="page-banner__intro">
                 <p>لیست همه ی اربعینیات</p>
+
             </div>
         </div>
     </div>

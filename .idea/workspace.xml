@@ -3,14 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="9d4ca1b5-b948-436d-86c1-d2b7cbb9a39e" name="Default Changelist" comment="arbayiin-route changes for arbayiin assignments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive-arbayiin.php" beforeDir="false" afterPath="$PROJECT_DIR$/archive-arbayiin.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -39,6 +43,7 @@
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/../../../../.." />
+      <path value="C:/.." />
     </include_path>
   </component>
   <component name="ProjectId" id="1UjbV9eSD3zx7c6hrWZmIYDbIo1" />
@@ -52,7 +57,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../moraghebehtheme" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
@@ -62,6 +67,18 @@
       <recent name="C:\Users\Ham\Local Sites\moraghebe\app\public\wp-content\themes\moraghebehtheme\js" />
       <recent name="C:\Users\Ham\Local Sites\moraghebe\app\public\wp-content\themes\moraghebehtheme\template-parts" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -106,6 +123,8 @@
       <workItem from="1603691847372" duration="48002000" />
       <workItem from="1604126094080" duration="6127000" />
       <workItem from="1604215965627" duration="17774000" />
+      <workItem from="1606990810669" duration="597000" />
+      <workItem from="1607581134354" duration="2169000" />
     </task>
     <task id="LOCAL-00001" summary="arbayiin-route changes for arbayiin assignments">
       <created>1604382617882</created>
@@ -125,7 +144,20 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="arbayiin-route changes for arbayiin assignments" />
